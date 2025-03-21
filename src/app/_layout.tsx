@@ -25,7 +25,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      router.replace('/Home');
+      router.replace('/Login');
     }
   }, [loaded, router]);
 

@@ -1,7 +1,10 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
 import Svg, {Path} from "react-native-svg";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
 
-export default function Home() {
+import { DefaultButton } from "@/src/presentation/components/default-button";
+
+
+export default function Login() {
     return (
         <View style={styles.container}>
             <Svg
@@ -30,12 +33,14 @@ export default function Home() {
                     placeholder='Constraseña'
                     style={styles.textInput}
                 />
-                <TouchableOpacity
-                    style={styles.button}
-                >
-                    <Text style={styles.textButton}>Iniciar sesión</Text>
+                <DefaultButton
+                    title="Iniciar sesión"
+                    onPress={() => console.log("Login...")}
+                />
+                <TouchableOpacity>
+                    <Text style={styles.register}>Registrarse</Text>
                 </TouchableOpacity>
-                <Text style={styles.register}>Registrarse</Text>
+
             </View>
         </View>
     );
@@ -72,22 +77,9 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 4,
     },
-    button: {
-        backgroundColor: 'blue',
-        padding: 12,
-        borderRadius: 4,
-        marginTop: 20,
-        width: '100%',
-        alignItems: 'center',
-    },
-    textButton: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
     register: {
         marginTop: 20,
-        color: 'blue',
+        color: '#717FF0',
         fontSize: 16,
         fontWeight: 'bold',
     }
