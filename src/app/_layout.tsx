@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/src/presentation/hooks/useColorScheme';
+import Toast from "react-native-toast-message";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,6 +41,7 @@ export default function RootLayout() {
               headerShown: false,
             }}
         />
+          <Toast />
       </ThemeProvider>
   );
 }

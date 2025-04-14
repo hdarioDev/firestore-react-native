@@ -1,12 +1,13 @@
 import Svg, {Path} from "react-native-svg";
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
 
 import { DefaultButton } from "@/src/presentation/components/default-button";
 import { useRouter } from "expo-router";
-
+import ViewModel from '@/src/domain/models/LoginViewModel'
 
 export default function Login() {
     const router = useRouter();
+    const { email, password, onChange, onSubmit} = ViewModel();
 
     return (
         <View style={styles.container}>
@@ -31,14 +32,18 @@ export default function Login() {
                 <TextInput
                     placeholder='Usuario'
                     style={styles.textInput}
+                    value={email}
+                    onChangeText={(text) => onChange('email', text)}
                 />
                 <TextInput
                     placeholder='Constraseña'
                     style={styles.textInput}
+                    value={password}
+                    onChangeText={(text) => onChange('password', text)}
                 />
                 <DefaultButton
                     title="Iniciar sesión"
-                    onPress={() => console.log("Login...")}
+                    onPress={() => onSubmit()}
                 />
                 <TouchableOpacity onPress={() => router.push('/Register')}>
                     <Text style={styles.register}>Registrarse</Text>
