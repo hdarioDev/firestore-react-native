@@ -2,9 +2,12 @@ import Svg, {Path} from "react-native-svg";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
 
 import { DefaultButton } from "@/src/presentation/components/default-button";
+import { useRouter } from "expo-router";
 
 
 export default function Login() {
+    const router = useRouter();
+
     return (
         <View style={styles.container}>
             <Svg
@@ -37,7 +40,7 @@ export default function Login() {
                     title="Iniciar sesión"
                     onPress={() => console.log("Login...")}
                 />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('/Register')}>
                     <Text style={styles.register}>Registrarse</Text>
                 </TouchableOpacity>
 
