@@ -2,6 +2,7 @@ import Svg, { Path } from "react-native-svg";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { DefaultButton } from "@/src/presentation/components/default-button";
 import { useRouter } from "expo-router";
+import { BackButton } from "@/src/presentation/components/back-button";
 import RegisterViewModel from "@/src/domain/models/RegisterViewModel";
 
 export default function Register() {
@@ -14,6 +15,7 @@ export default function Register() {
 
     return (
         <View style={styles.container}>
+            <BackButton />
             <Svg
                 viewBox="0 0 1440 320"
                 height={220}
@@ -109,5 +111,5 @@ const styles = StyleSheet.create({
         color: '#717FF0',
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
 });
