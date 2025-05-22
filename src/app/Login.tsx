@@ -1,21 +1,46 @@
 import Svg, {Path} from "react-native-svg";
-import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView
+} from 'react-native';
 
 import { DefaultButton } from "@/src/presentation/components/default-button";
 import { useRouter } from "expo-router";
-import ViewModel from '@/src/domain/models/LoginViewModel'
+import LoginViewModel from "@/src/domain/models/LoginViewModel";
 
 export default function Login() {
     const router = useRouter();
-    const { email, password, onChange, onSubmit} = ViewModel();
+
+    const {
+        email,
+        password,
+        onChange,
+        onSubmit,
+    } = LoginViewModel(() => {
+        router.replace('/(app)/home');
+    });
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+            <ScrollView
+                contentContainerStyle={styles.scroll}
+                keyboardShouldPersistTaps="handled"
+            >
             <Svg
                 viewBox="0 0 1440 320"
                 height={220}
                 width={'100%'}
-                style={{position: 'absolute', top: -70}}
+                style={styles.svg}
             >
                 <Path
                     fill="#0099ff"
@@ -27,7 +52,7 @@ export default function Login() {
                 <Text style={styles.title}>Iniciar sesión</Text>
                 <Image
                     source={require('@/src/presentation/assets/images/img/controller.png')}
-                    style={{width: 200, height: 200, margin: 20}}
+                    style={styles.image}
                 />
                 <TextInput
                     placeholder='Usuario'
@@ -50,31 +75,39 @@ export default function Login() {
                 </TouchableOpacity>
 
             </View>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
+    },
+    scroll: {
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: ''
+    },
+    svg: {
+        position: 'absolute',
+        top: -70,
     },
     form: {
-        flex: 1,
-        justifyContent: 'center',
-        width: '80%',
+        width: '100%',
         alignItems: 'center',
+        paddingHorizontal: 20,
     },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    text: {
-        fontSize: 20,
-        fontWeight: 'bold',
+    image: {
+        width: 200,
+        height: 200,
+        margin: 20,
     },
     textInput: {
         height: 40,
@@ -90,5 +123,5 @@ const styles = StyleSheet.create({
         color: '#717FF0',
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
 });

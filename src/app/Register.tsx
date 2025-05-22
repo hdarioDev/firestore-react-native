@@ -11,7 +11,10 @@ export default function Register() {
     const {
         name, email, password, confirmPassword,
         onChange, onSubmit
-    } = RegisterViewModel();
+    } = RegisterViewModel(() => {
+        router.replace('/(app)/home');
+    });
+
 
     return (
         <View style={styles.container}>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Toast from "react-native-toast-message";
+import { register } from "@/src/firebase/auth.service";
+import { useAuthStore } from "@/src/store/auth";
 
 type RegisterFormValues = {
     name: string;
@@ -8,7 +10,7 @@ type RegisterFormValues = {
     confirmPassword: string;
 };
 
-const RegisterViewModel = () => {
+const RegisterViewModel = (onSuccess?: () => void) => {
     const [values, setValues] = useState<RegisterFormValues>({
         name: '',
         email: '',
@@ -24,7 +26,7 @@ const RegisterViewModel = () => {
         });
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const valid = isValidForm();
 
         if (!valid) {
@@ -36,7 +38,26 @@ const RegisterViewModel = () => {
             return;
         }
 
-        console.log('Registro exitoso', JSON.stringify(values, null, 2));
+        try {
+            const userCredential = await register(values.email, values.password);
+            useAuthStore.getState().setUser(userCredential.user);
+
+            Toast.show({
+                type: 'success',
+                text1: 'Registro exitoso',
+                text2: `Bienvenido, ${values.name}`,
+            });
+
+            onSuccess?.();
+
+        } catch (error: any) {
+            console.error('Error al registrar:', error);
+            Toast.show({
+                type: 'error',
+                text1: 'Error al registrar',
+                text2: error.message || 'Ocurrió un error',
+            });
+        }
     };
 
     const isValidForm = (): boolean => {
